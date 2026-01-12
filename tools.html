@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tools – Utilities Hub</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Orbitron',sans-serif}
+body{background:#05050a;color:#fff}
+
+.header{
+    margin:15px;
+    padding:20px;
+    background:linear-gradient(145deg,#7b2cff,#ff00ff);
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 0 20px rgba(180,0,255,.6)
+}
+
+.tools{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+    margin:15px;
+}
+
+.tool{
+    padding:20px;
+    border-radius:15px;
+    background:linear-gradient(145deg,#150020,#30003f);
+    text-align:center;
+    box-shadow:0 0 15px rgba(180,0,255,.4);
+    cursor:pointer;
+}
+
+.tool span{
+    font-size:28px;
+    display:block;
+    margin-bottom:10px;
+}
+
+.tool p{
+    font-size:13px;
+    opacity:.85;
+}
+
+.back{
+    margin:20px;
+    text-align:center;
+    color:#ff5cff;
+    cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<!-- PROTEKSI LOGIN -->
+<script>
+if(localStorage.getItem("login") !== "true"){
+    window.location.href = "login.html";
+}
+</script>
+
+<div class="header">
+    <h2>⚡ Utilities Hub</h2>
+    <p>Useful tools for beta users</p>
+</div>
+
+<div class="tools">
+    <div class="tool" onclick="alert('IP Info – Coming Soon')">
+        <span>🌐</span>
+        <p>IP Info</p>
+    </div>
+
+    <div class="tool" onclick="alert('Server Status – Coming Soon')">
+        <span>📊</span>
+        <p>Server Status</p>
+    </div>
+
+    <div class="tool" onclick="alert('Speed Test – Coming Soon')">
+        <span>🚀</span>
+        <p>Speed Test</p>
+    </div>
+
+    <div class="tool" onclick="alert('Converter – Coming Soon')">
+        <span>🔧</span>
+        <p>Converter</p>
+    </div>
+</div>
+
+<div class="back" onclick="history.back()">⬅ Back</div>
+
+</body>
+</html>
