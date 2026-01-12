@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beta Test Server</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Orbitron',sans-serif}
+body{background:#05050a;color:#fff}
+
+/* BANNER */
+.banner{margin:15px;border-radius:20px;overflow:hidden;position:relative;box-shadow:0 0 20px rgba(180,0,255,.6)}
+.banner video{width:100%;height:200px;object-fit:cover}
+.banner-text{position:absolute;bottom:15px;left:20px}
+.banner-text h2{color:#ff5cff;text-shadow:0 0 10px #ff00ff}
+.banner-text p{font-size:12px;opacity:.8}
+
+/* MENU */
+.menu{display:flex;justify-content:space-around;margin:20px 10px}
+.menu-item{text-align:center}
+.menu-btn{
+    width:55px;height:55px;border-radius:50%;
+    background:linear-gradient(145deg,#7b2cff,#ff00ff);
+    display:flex;align-items:center;justify-content:center;
+    font-size:22px;cursor:pointer;
+    box-shadow:0 0 15px rgba(180,0,255,.7);
+    pointer-events:auto;
+    z-index:10;
+}
+.menu-btn:active{transform:scale(.95)}
+.menu-item p{margin-top:8px;font-size:11px;opacity:.8}
+
+/* BUTTON INFO */
+.button{margin:15px;padding:15px;background:linear-gradient(90deg,#7b2cff,#ff00ff);border-radius:15px;display:flex;justify-content:space-between}
+
+/* STATS */
+.stats{margin:15px;padding:15px;background:linear-gradient(145deg,#150020,#30003f);border-radius:15px}
+.stats h3{margin-bottom:15px;color:#ff5cff}
+.stat-item{display:flex;justify-content:space-between;margin:10px 0;font-size:13px}
+
+/* LOGOUT */
+.logout{margin:15px;text-align:center;color:#ff5cff;cursor:pointer}
+
+/* CHAT AI */
+.chat-overlay{
+    position:fixed;inset:0;
+    background:rgba(0,0,0,.85);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999
+}
+.chat-box{
+    width:90%;max-width:380px;
+    background:#120018;
+    border-radius:20px;padding:15px;
+    box-shadow:0 0 25px #ff00ff
+}
+.chat-header{text-align:center;margin-bottom:10px}
+.chat-header img{
+    width:70px;height:70px;border-radius:50%;
+    box-shadow:0 0 10px #ff00ff;
+    margin-bottom:8px
+}
+.chat-msg{
+    background:#1d0028;
+    padding:10px;
+    border-radius:10px;
+    margin-bottom:10px;
+    font-size:13px
+}
+.chat-btn{
+    margin:6px 0;
+    padding:10px;
+    background:linear-gradient(90deg,#7b2cff,#ff00ff);
+    border-radius:10px;
+    text-align:center;
+    cursor:pointer;
+    font-size:12px
+}
+.close-chat{
+    margin-top:10px;
+    text-align:center;
+    color:#ff5cff;
+    cursor:pointer
+}
+</style>
+</head>
+<body>
+
+<script>
+if(localStorage.getItem("login")!=="true"){window.location.href="login.html";}
+</script>
+
+<!-- AUTO MUSIC -->
+<audio id="bgMusic" src="https://files.catbox.moe/doz9x5.mp3" preload="auto" loop></audio>
+<script>
+document.addEventListener("click",()=>document.getElementById("bgMusic").play(),{once:true})
+document.addEventListener("touchstart",()=>document.getElementById("bgMusic").play(),{once:true})
+</script>
+
+<!-- BANNER -->
+<div class="banner">
+<video src="https://files.catbox.moe/3vx2gq.mp4" autoplay muted loop></video>
+<div class="banner-text">
+<h2>DarkVENOM </h2>
+<p>still looks good DrakVENOM.</p>
+</div>
+</div>
+
+<!-- MENU -->
+<div class="menu">
+<div class="menu-item">
+<div class="menu-btn" onclick="location.href='tools.html'">⚡</div>
+<p>Tools</p>
+</div>
+
+<div class="menu-item">
+<div class="menu-btn chat-btn-open" onclick="openChat()">💬</div>
+<p>Chat</p>
+</div>
+
+<div class="menu-item">
+<div class="menu-btn">⚙</div>
+<p>Account</p>
+</div>
+</div>
+
+<div class="button">
+<span>🔥 Telegram Channel</span><span>➜</span>
+</div>
+
+<div class="stats">
+<h3>📊 Server Stats</h3>
+<div class="stat-item"><span>👥 Online Users</span><span>0</span></div>
+<div class="stat-item"><span>🚀 Active Sender</span><span>0</span></div>
+</div>
+
+<div class="logout" onclick="logout()">LOGOUT</div>
+
+<!-- CHAT AI -->
+<div class="chat-overlay" id="chatAI">
+<div class="chat-box">
+<div class="chat-header">
+<img src="https://files.catbox.moe/3vx2gq.jpg">
+<h3 style="color:#ff5cff">AI Assistant</h3>
+</div>
+
+<div class="chat-msg" id="chatAnswer">
+Pilih pertanyaan 👇
+</div>
+
+<div class="chat-btn" onclick="reply(1)">1️⃣ Nama Owner</div>
+<div class="chat-btn" onclick="reply(2)">2️⃣ Chat Telegram Owner</div>
+<div class="chat-btn" onclick="reply(3)">3️⃣ Website Dibuat</div>
+
+<div class="close-chat" onclick="closeChat()">TUTUP</div>
+</div>
+</div>
+
+<script>
+function logout(){
+    localStorage.removeItem("login");
+    window.location.href="login.html";
+}
+
+function openChat(){document.getElementById("chatAI").style.display="flex";}
+function closeChat(){document.getElementById("chatAI").style.display="none";}
+function reply(x){
+    const a=document.getElementById("chatAnswer");
+    if(x===1) a.innerHTML="👤 <b>Owner:</b><br>WN HOST (disamarkan)";
+    if(x===2) a.innerHTML="📩 <b>Telegram:</b><br>@WAN_HOST";
+    if(x===3) a.innerHTML="📅 <b>Dibuat:</b><br>Selasa, 13 Januari 2026";
+}
+</script>
+
+</body>
+</html>
