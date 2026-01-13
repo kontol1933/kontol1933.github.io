@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Orbitron}
+body{background:#000;color:#fff;padding:15px}
+.card{background:#120015;padding:15px;border-radius:15px;margin-bottom:15px}
+button,input{width:100%;padding:10px;margin-top:8px;border:none;border-radius:10px}
+button{background:#7b2cff;color:#fff}
+pre{white-space:pre-wrap}
+</style>
+</head>
+<body>
+
+<audio id="bgm" src="https://files.catbox.moe/doz9x5.mp3" loop></audio>
+<script>
+document.addEventListener("click",()=>bgm.play().catch(()=>{}),{once:true});
+</script>
+
+<div class="card">
+<h3>🌐 INTERNET</h3>
+<button onclick="checkNet()">CHECK</button>
+<div id="net"></div>
+</div>
+
+<div class="card">
+<h3>📶 WIFI</h3>
+<button onclick="wifi()">CHECK</button>
+<div id="wf"></div>
+</div>
+
+<div class="card">
+<h3>📡 IP SCANNER</h3>
+<button onclick="scan()">SCAN</button>
+<pre id="ip"></pre>
+</div>
+
+<div class="card">
+<h3>🩸 DDOS (DEMO UI)</h3>
+<input placeholder="Target Website">
+<video src="https://files.catbox.moe/3vx2gq.mp4" controls width="100%"></video>
+</div>
+
+<div class="card">
+<h3>📤 CATBOX UPLOAD</h3>
+<input type="file" id="f">
+<button onclick="up()">UPLOAD</button>
+<div id="res"></div>
+</div>
+
+<button onclick="location.href='beta.html'">⬅ BACK</button>
+
+<script>
+function checkNet(){
+  net.textContent=navigator.onLine?"✅ INTERNET AKTIF\nKoneksi stabil & siap digunakan":"❌ INTERNET OFF";
+  setTimeout(()=>net.textContent="",4000);
+}
+function wifi(){
+  wf.textContent=navigator.onLine?"📶 WIFI / DATA ON":"❌ WIFI OFF";
+}
+async function scan(){
+  const r=await fetch("https://ipapi.co/json/");
+  const d=await r.json();
+  ip.textContent=
+`IP: ${d.ip}
+Kota: ${d.city}
+Negara: ${d.country_name}
+ISP: ${d.org}
+OS: ${navigator.platform}
+Browser: ${navigator.userAgent}`;
+}
+async function up(){
+  const fd=new FormData();
+  fd.append("fileToUpload",f.files[0]);
+  const r=await fetch("https://catbox.moe/user/api.php",{method:"POST",body:fd});
+  res.textContent="Link: "+await r.text();
+}
+</script>
+
+</body>
+</html>
