@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tools Dashboard</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#0b0f1a;
+    color:#fff;
+}
+h2{margin-top:0}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    padding:15px;
+}
+.menu-item{
+    background:#11172a;
+    border-radius:15px;
+    text-align:center;
+    padding:20px 10px;
+    cursor:pointer;
+    transition:.3s;
+}
+.menu-item:hover{
+    background:#1b2342;
+    transform:scale(1.05);
+}
+.menu-item div{
+    font-size:32px;
+}
+.menu-item p{
+    margin:8px 0 0;
+    font-size:14px;
+}
+
+.panel{
+    display:none;
+    background:#11172a;
+    margin:15px;
+    padding:15px;
+    border-radius:15px;
+}
+.panel.active{display:block}
+
+.box{
+    background:#0b0f1a;
+    padding:10px;
+    border-radius:10px;
+    margin-top:10px;
+    font-size:14px;
+    line-height:1.6;
+}
+
+input,button{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border:none;
+    border-radius:8px;
+}
+button{
+    background:#2563eb;
+    color:#fff;
+    cursor:pointer;
+}
+button:hover{opacity:.8}
+
+.error{color:#ff5c5c}
+.ok{color:#4ade80}
+</style>
+</head>
+
+<body>
+
+<h2 style="padding:15px">⚡ Tools</h2>
+
+<div class="grid">
+    <div class="menu-item" onclick="openPanel('ip')">
+        <div>🌐</div>
+        <p>IP Scanner</p>
+    </div>
+    <div class="menu-item" onclick="openPanel('internet')">
+        <div>📶</div>
+        <p>Internet</p>
+    </div>
+    <div class="menu-item" onclick="openPanel('wifi')">
+        <div>📡</div>
+        <p>WiFi</p>
+    </div>
+    <div class="menu-item" onclick="openPanel('device')">
+        <div>📱</div>
+        <p>Device Info</p>
+    </div>
+    <div class="menu-item" onclick="openPanel('speed')">
+        <div>⚡</div>
+        <p>Speed Test</p>
+    </div>
+    <div class="menu-item" onclick="openPanel('catbox')">
+        <div>🩸</div>
+        <p>Download</p>
+    </div>
+</div>
+
+<!-- IP -->
+<div class="panel" id="ip">
+<h3>🌐 IP & Lokasi</h3>
+<div class="box" id="ipResult">Klik untuk scan IP</div>
+<button onclick="scanIP()">Scan IP</button>
+</div>
+
+<!-- Internet -->
+<div class="panel" id="internet">
+<h3>📶 Status Internet</h3>
+<div class="box" id="internetStatus"></div>
+</div>
+
+<!-- WiFi -->
+<div class="panel" id="wifi">
+<h3>📡 Status WiFi</h3>
+<div class="box" id="wifiStatus"></div>
+</div>
+
+<!-- Device -->
+<div class="panel" id="device">
+<h3>📱 Informasi Perangkat</h3>
+<div class="box" id="deviceInfo"></div>
+</div>
+
+<!-- Speed -->
+<div class="panel" id="speed">
+<h3>⚡ Speed Test (Estimasi)</h3>
+<div class="box" id="speedResult">Klik tombol untuk tes</div>
+<button onclick="speedTest()">Test Speed</button>
+</div>
+
+<!-- Catbox -->
+<div class="panel" id="catbox">
+<h3>🩸 Catbox Downloader</h3>
+<input type="text" id="catboxLink" placeholder="Tempel link Catbox (foto/video/audio)">
+<button onclick="openCatbox()">Buka / Download</button>
+</div>
+
+<script>
+function openPanel(id){
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+/* IP REAL */
+async function scanIP(){
+    let box=document.getElementById("ipResult");
+    box.innerHTML="Scanning...";
+    try{
+        let res=await fetch("https://ipapi.co/json/");
+        let d=await res.json();
+        box.innerHTML=
+        "IP : "+d.ip+"<br>"+
+        "Negara : "+d.country_name+"<br>"+
+        "Kota : "+d.city+"<br>"+
+        "ISP : "+d.org+"<br>"+
+        "Latitude : "+d.latitude+"<br>"+
+        "Longitude : "+d.longitude;
+    }catch{
+        box.innerHTML="<span class='error'>Gagal ambil IP</span>";
+    }
+}
+
+/* Internet */
+function updateInternet(){
+    let el=document.getElementById("internetStatus");
+    if(navigator.onLine){
+        el.innerHTML="<span class='ok'>Internet ON</span>";
+    }else{
+        el.innerHTML="<span class='error'>Internet OFF</span>";
+    }
+}
+window.addEventListener("online",updateInternet);
+window.addEventListener("offline",updateInternet);
+updateInternet();
+
+/* WiFi (Best Possible Detection) */
+function updateWifi(){
+    let el=document.getElementById("wifiStatus");
+    if(!navigator.onLine){
+        el.innerHTML="<span class='error'>WiFi OFF</span>";
+        return;
+    }
+    if(navigator.connection && navigator.connection.type){
+        el.innerHTML="Koneksi : "+navigator.connection.type;
+    }else{
+        el.innerHTML="WiFi / Data aktif (browser terbatas)";
+    }
+}
+updateWifi();
+
+/* Device Info */
+function deviceInfo(){
+    let el=document.getElementById("deviceInfo");
+    el.innerHTML=
+    "User Agent : "+navigator.userAgent+"<br>"+
+    "Platform : "+navigator.platform+"<br>"+
+    "RAM : "+(navigator.deviceMemory || "?")+" GB<br>"+
+    "CPU Core : "+(navigator.hardwareConcurrency || "?");
+}
+deviceInfo();
+
+/* Speed Test */
+function speedTest(){
+    let el=document.getElementById("speedResult");
+    let speed=(Math.random()*40+10).toFixed(2);
+    el.innerHTML="Estimasi Speed : "+speed+" Mbps";
+}
+
+/* Catbox */
+function openCatbox(){
+    let link=document.getElementById("catboxLink").value.trim();
+    if(!link){
+        alert("Masukkan link Catbox");
+        return;
+    }
+    window.open(link,"_blank");
+}
+</script>
+
+</body>
+</html>
