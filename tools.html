@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Orbitron}
+body{
+  background:#06000c;
+  color:#fff;
+  padding:20px;
+}
+
+.card{
+  background:linear-gradient(145deg,#14001f,#0b0015);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 0 25px rgba(180,0,255,.4);
+  margin-bottom:20px;
+}
+
+h2{
+  color:#ff4df0;
+  margin-bottom:10px;
+  text-align:center;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:none;
+  outline:none;
+  background:#0e0018;
+  color:#fff;
+  margin-top:10px;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  margin-top:12px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(90deg,#7b2cff,#ff00ff);
+  color:#fff;
+  font-size:15px;
+  cursor:pointer;
+}
+
+/* DEMO AREA */
+#demo{
+  display:none;
+  text-align:center;
+}
+
+#demo video{
+  width:100%;
+  border-radius:16px;
+  margin-top:15px;
+  box-shadow:0 0 25px rgba(255,0,80,.6);
+}
+
+.alert{
+  margin-top:15px;
+  padding:15px;
+  background:#180000;
+  border-radius:14px;
+  box-shadow:0 0 25px rgba(255,0,0,.6);
+  animation:blink 1s infinite;
+}
+
+@keyframes blink{
+  0%{opacity:1}
+  50%{opacity:.5}
+  100%{opacity:1}
+}
+
+.exit{
+  margin-top:25px;
+  text-align:center;
+  color:#ff4df0;
+  cursor:pointer;
+  font-size:14px;
+}
+.small{
+  font-size:11px;
+  opacity:.7;
+  margin-top:6px;
+}
+</style>
+</head>
+
+<body>
+
+<script>
+if(localStorage.getItem("login")!=="true"){
+  location.href="login.html";
+}
+</script>
+
+<!-- AUDIO -->
+<audio id="bgm" src="https://files.catbox.moe/doz9x5.mp3" loop></audio>
+<script>
+document.addEventListener("click",()=>{
+  bgm.volume=0.5;
+  bgm.play().catch(()=>{});
+},{once:true});
+</script>
+
+<div class="card">
+  <h2>🥀 DDOS DEMO (SIMULATION)</h2>
+  <div class="small">
+    ⚠️ Ini hanya tampilan demo visual, bukan serangan nyata.
+  </div>
+
+  <input id="target" placeholder="Masukkan target website (demo)">
+  <button onclick="startDemo()">START ATTACK</button>
+</div>
+
+<!-- DEMO -->
+<div class="card" id="demo">
+  <h2>⚠️ ATTACK IN PROGRESS</h2>
+
+  <div class="alert">
+    🔥 SYSTEM OVERLOAD DETECTED<br>
+    🚨 PACKET FLOOD SIMULATION ACTIVE<br>
+    💀 TARGET UNDER HEAVY PRESSURE
+  </div>
+
+  <!-- VIDEO CATBOX -->
+  <video autoplay loop muted playsinline>
+    <source src="https://files.catbox.moe/3vx2gq.mp4" type="video/mp4">
+  </video>
+
+  <div class="alert">
+    ⛔ WARNING ⛔<br>
+    NETWORK COLLAPSE IMMINENT<br>
+    SERVER RESPONSE DROPPING<br>
+    TRACE SIGNAL LOST...
+  </div>
+
+  <div class="exit" onclick="location.href='beta.html'">
+    ⬅ KELUAR KE DASHBOARD
+  </div>
+</div>
+
+<script>
+function startDemo(){
+  if(!target.value.trim()){
+    alert("Masukkan target demo terlebih dahulu");
+    return;
+  }
+  demo.style.display="block";
+  window.scrollTo({top:demo.offsetTop,behavior:"smooth"});
+}
+</script>
+
+</body>
+</html>
