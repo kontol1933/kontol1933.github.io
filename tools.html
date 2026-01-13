@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tools Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Orbitron',sans-serif}
+body{background:#05050a;color:#fff;}
+
+/* Menu Tools */
+.menu{
+    display:flex;
+    justify-content:space-around;
+    margin:20px 10px
+}
+.menu-item{text-align:center; cursor:pointer;}
+.menu-item div{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    background:linear-gradient(145deg,#7b2cff,#ff00ff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    box-shadow:0 0 15px rgba(180,0,255,.7)
+}
+.menu-item p{margin-top:8px;font-size:11px;opacity:.8}
+
+/* Stats / Info */
+.stats{
+    margin:15px;
+    padding:15px;
+    background:linear-gradient(145deg,#150020,#30003f);
+    border-radius:15px;
+    box-shadow:0 0 15px rgba(180,0,255,.5)
+}
+.stats h3{margin-bottom:15px;color:#ff5cff}
+.stat-item{
+    display:flex;
+    justify-content:space-between;
+    margin:10px 0;
+    font-size:13px
+}
+
+/* Buttons */
+button{
+    width:100%;
+    padding:10px;
+    margin:5px 0;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(145deg,#7b2cff,#ff00ff);
+    color:#fff;
+    cursor:pointer;
+    font-size:14px;
+}
+button:hover{opacity:.85;}
+</style>
+</head>
+<body>
+
+<!-- AUTO MUSIC TOOLS -->
+<audio id="toolsMusic" src="https://files.catbox.moe/doz9x5.mp3" preload="auto" loop></audio>
+<script>
+document.addEventListener("click", playToolsMusicOnce, { once: true });
+document.addEventListener("touchstart", playToolsMusicOnce, { once: true });
+function playToolsMusicOnce(){
+    const music = document.getElementById("toolsMusic");
+    music.volume = 0.5;
+    music.play().catch(()=>{});
+}
+</script>
+
+<h2 style="margin:15px; color:#ff5cff;">⚡ Tools Dashboard</h2>
+
+<!-- Menu Tools -->
+<div class="menu">
+    <div class="menu-item" onclick="getIPInfo()">
+        <div>🌐</div>
+        <p>IP Scanner</p>
+    </div>
+    <div class="menu-item" onclick="checkInternet()">
+        <div>📶</div>
+        <p>Internet</p>
+    </div>
+    <div class="menu-item" onclick="checkWiFi()">
+        <div>📡</div>
+        <p>WiFi</p>
+    </div>
+    <div class="menu-item" onclick="downloadCatbox()">
+        <div>🩸</div>
+        <p>Download</p>
+    </div>
+</div>
+
+<!-- Stats / Info -->
+<div class="stats" id="infoPanel">
+    <h3>ℹ️ Info</h3>
+    <div class="stat-item"><span>IP / Lokasi:</span><span id="ip">-</span></div>
+    <div class="stat-item"><span>CPU HP:</span><span id="cpu">-</span></div>
+    <div class="stat-item"><span>Kekuatan Sinyal:</span><span id="signal">-</span></div>
+    <div class="stat-item"><span>Merek HP:</span><span id="brand">-</span></div>
+</div>
+
+<script>
+// IP Scanner
+async function getIPInfo(){
+    try{
+        const res = await fetch('https://ipapi.co/json/');
+        const data = await res.json();
+        document.getElementById('ip').innerText = data.ip + ' (' + data.city + ', ' + data.region + ')';
+        document.getElementById('cpu').innerText = navigator.hardwareConcurrency || 'Unknown';
+        document.getElementById('signal').innerText = 'N/A'; // Sinyal HP tidak tersedia via browser
+        document.getElementById('brand').innerText = navigator.userAgent;
+    } catch(e){
+        alert('Gagal ambil info IP');
+    }
+}
+
+// Internet Checker
+function checkInternet(){
+    if(navigator.onLine){
+        alert('✅ Internet aktif');
+    } else {
+        alert('❌ Internet mati');
+    }
+}
+
+// WiFi Checker (browser hanya bisa tahu online/offline)
+function checkWiFi(){
+    if(navigator.onLine){
+        alert('✅ WiFi / Koneksi aktif');
+    } else {
+        alert('❌ WiFi mati');
+    }
+}
+
+// Download Catbox Example
+function downloadCatbox(){
+    window.open('https://files.catbox.moe/xxxxx.jpg','_blank');
+}
+</script>
+
+</body>
+</html>
