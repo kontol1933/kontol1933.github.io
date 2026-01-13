@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WN NEWS 2026 • Bola & Cyber Intelligence</title>
+
+<meta name="description" content="Media berita bola dan cyber attack 2026. Update real-time, visual modern, cyber intelligence.">
+<meta name="theme-color" content="#ff2e2e">
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* ===== EXTRA VISUAL 2026 ===== */
+.glow-bg{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255,0,0,.15), transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(0,200,255,.15), transparent 40%),
+    radial-gradient(circle at 50% 90%, rgba(255,0,255,.12), transparent 40%);
+  z-index:-1;
+}
+
+.ticker{
+  background:#0c0c18;
+  border-top:1px solid rgba(255,255,255,.08);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  overflow:hidden;
+  white-space:nowrap;
+}
+.ticker span{
+  display:inline-block;
+  padding:10px 0;
+  animation:ticker 25s linear infinite;
+  font-size:12px;
+  opacity:.8;
+}
+@keyframes ticker{
+  from{transform:translateX(100%)}
+  to{transform:translateX(-100%)}
+}
+
+.breaking{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:linear-gradient(90deg,#ff2e2e,#7a0000);
+  padding:12px 15px;
+  font-size:13px;
+  font-weight:600;
+}
+.breaking b{
+  background:#000;
+  padding:3px 8px;
+  border-radius:6px;
+  font-size:11px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+  margin-top:20px;
+}
+
+.spotlight{
+  background:linear-gradient(145deg,#220010,#0d0008);
+  border-radius:20px;
+  padding:25px;
+  box-shadow:0 0 40px rgba(255,0,0,.25);
+}
+
+.live{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:11px;
+  color:#0f0;
+}
+.live::before{
+  content:"";
+  width:8px;
+  height:8px;
+  background:#0f0;
+  border-radius:50%;
+  box-shadow:0 0 10px #0f0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="glow-bg"></div>
+
+<!-- ===== BREAKING NEWS BAR ===== -->
+<div class="breaking">
+  <b>BREAKING</b>
+  Sistem keamanan global, liga sepak bola, dan dunia cyber terus berkembang cepat di 2026
+</div>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <h1>WN NEWS</h1>
+  <p>⚽ Bola • 💀 Cyber Attack • 🧠 Intelligence</p>
+  <div class="live">LIVE UPDATE</div>
+</header>
+
+<!-- ===== TICKER ===== -->
+<div class="ticker">
+  <span>
+    ⚠️ Serangan siber meningkat global • ⚽ Bursa transfer memanas • 💀 Hacker gunakan AI • 🚨 Kebocoran data • ⚡ Update real-time
+  </span>
+</div>
+
+<!-- ===== CATEGORY NAV ===== -->
+<nav>
+  <button onclick="loadNews('bola')">⚽ BOLA</button>
+  <button onclick="loadNews('hacking')">💀 CYBER ATTACK</button>
+</nav>
+
+<!-- ===== SPOTLIGHT ===== -->
+<section class="spotlight" style="max-width:900px;margin:20px auto;">
+  <h2 style="color:#ff6a6a;margin-bottom:10px;">
+    🔥 Spotlight 2026
+  </h2>
+  <p style="font-size:13px;opacity:.8;line-height:1.6">
+    Dunia sepak bola dan keamanan siber memasuki era baru.  
+    AI, serangan digital, dan strategi modern menjadi fokus utama global.
+  </p>
+</section>
+
+<!-- ===== MAIN NEWS ===== -->
+<main id="news">
+  <div class="loading">
+    Pilih kategori berita<br>
+    <span style="font-size:11px;opacity:.6">
+      Konten akan diperbarui otomatis
+    </span>
+  </div>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p>
+    © 2026 <b>WN NEWS</b><br>
+    Global Football & Cyber Intelligence Media
+  </p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

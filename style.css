@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Poppins:wght@300;400;600&display=swap');
+
+:root{
+  --red:#ff2e2e;
+  --dark:#0a0a12;
+  --card:#141424;
+  --neon:0 0 15px rgba(255,46,46,.6);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box
+}
+
+body{
+  background:
+    radial-gradient(circle at top,#151528,#05050a 70%);
+  color:#fff;
+  font-family:'Poppins',sans-serif;
+  min-height:100vh;
+}
+
+/* ===== HEADER ===== */
+header{
+  padding:30px 15px;
+  text-align:center;
+  background:
+    linear-gradient(135deg,#120018,#300010);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+header h1{
+  font-family:'Orbitron',sans-serif;
+  font-size:32px;
+  color:var(--red);
+  text-shadow:var(--neon);
+  letter-spacing:2px;
+}
+
+header p{
+  margin-top:8px;
+  font-size:13px;
+  opacity:.8
+}
+
+/* ===== NAV BUTTON ===== */
+nav{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  padding:20px;
+  flex-wrap:wrap
+}
+
+nav button{
+  padding:12px 22px;
+  border:none;
+  border-radius:30px;
+  background:
+    linear-gradient(145deg,#ff2e2e,#b10000);
+  color:#fff;
+  font-weight:600;
+  letter-spacing:.5px;
+  cursor:pointer;
+  box-shadow:var(--neon);
+  transition:.3s;
+}
+
+nav button:hover{
+  transform:translateY(-3px) scale(1.05);
+  box-shadow:0 0 25px rgba(255,46,46,.9);
+}
+
+/* ===== MAIN ===== */
+main{
+  padding:25px;
+  max-width:900px;
+  margin:auto;
+}
+
+/* ===== CARD NEWS ===== */
+.card{
+  background:
+    linear-gradient(145deg,#191933,#0e0e1a);
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.5),
+    inset 0 0 30px rgba(255,0,0,.05);
+  position:relative;
+  overflow:hidden;
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(120deg,
+      transparent 30%,
+      rgba(255,46,46,.15),
+      transparent 70%);
+  opacity:.3;
+}
+
+.card h3{
+  font-size:18px;
+  margin-bottom:10px;
+  color:#ff6a6a;
+  line-height:1.4;
+}
+
+.card p{
+  font-size:12px;
+  opacity:.7;
+  margin-bottom:12px;
+}
+
+.card a{
+  display:inline-block;
+  padding:8px 15px;
+  font-size:12px;
+  border-radius:20px;
+  background:#0c0c18;
+  color:#00c8ff;
+  text-decoration:none;
+  border:1px solid rgba(0,200,255,.3);
+  transition:.3s;
+}
+
+.card a:hover{
+  background:#00c8ff;
+  color:#000;
+  box-shadow:0 0 15px rgba(0,200,255,.7);
+}
+
+/* ===== LOADING ===== */
+.loading{
+  text-align:center;
+  padding:30px;
+  font-size:14px;
+  opacity:.7;
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  0%{opacity:.3}
+  50%{opacity:1}
+  100%{opacity:.3}
+}
+
+/* ===== FOOTER ===== */
+footer{
+  margin-top:40px;
+  padding:20px;
+  text-align:center;
+  font-size:12px;
+  opacity:.6;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:600px){
+  header h1{font-size:26px}
+  nav button{padding:10px 18px}
+}
