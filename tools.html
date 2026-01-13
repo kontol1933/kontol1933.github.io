@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Orbitron}
+body{background:#06000c;color:#fff;padding:18px}
+
+.card{
+  background:linear-gradient(145deg,#14001f,#0b0015);
+  border-radius:18px;
+  padding:16px;
+  box-shadow:0 0 25px rgba(180,0,255,.35);
+  margin-bottom:18px;
+}
+
+h2{color:#ff4df0;margin-bottom:10px;text-align:center}
+p{font-size:13px;opacity:.9}
+
+button,input{
+  width:100%;padding:12px;margin-top:10px;
+  border:none;border-radius:14px;
+  background:#0e0018;color:#fff;
+}
+button{
+  background:linear-gradient(90deg,#7b2cff,#ff00ff);
+  cursor:pointer;font-size:14px;
+}
+
+.small{font-size:11px;opacity:.7;margin-top:6px}
+
+/* ALERT */
+.alert{
+  margin-top:12px;padding:12px;border-radius:14px;
+  background:#180000;
+  box-shadow:0 0 20px rgba(255,0,0,.6);
+  animation:blink 1s infinite;
+}
+@keyframes blink{50%{opacity:.6}}
+
+/* VIDEO */
+video{
+  width:100%;margin-top:12px;border-radius:16px;
+  box-shadow:0 0 25px rgba(255,0,80,.6);
+}
+
+/* BACK */
+.back{
+  text-align:center;color:#ff4df0;
+  margin-top:20px;cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<script>
+if(localStorage.getItem("login")!=="true") location.href="login.html";
+</script>
+
+<!-- AUDIO -->
+<audio id="bgm" src="https://files.catbox.moe/doz9x5.mp3" loop></audio>
+<script>
+document.addEventListener("click",()=>{
+  bgm.volume=0.5;
+  bgm.play().catch(()=>{});
+},{once:true});
+</script>
+
+<!-- ================= IP SCANNER ================= -->
+<div class="card">
+<h2>🌐 IP Scanner</h2>
+<p id="ipInfo">Klik scan untuk membaca data perangkat…</p>
+<button onclick="scanIP()">SCAN</button>
+</div>
+
+<!-- ================= INTERNET ================= -->
+<div class="card">
+<h2>📡 Internet Status</h2>
+<p id="netStatus">Klik untuk cek koneksi</p>
+<button onclick="checkNet()">CHECK</button>
+</div>
+
+<!-- ================= WIFI ================= -->
+<div class="card">
+<h2>📶 WiFi Status</h2>
+<p id="wifiStatus">Klik untuk cek WiFi</p>
+<button onclick="checkWifi()">CHECK</button>
+</div>
+
+<!-- ================= CATBOX ================= -->
+<div class="card">
+<h2>🩸 Catbox Upload</h2>
+<p>Upload file ke Catbox (manual)</p>
+<input placeholder="https://catbox.moe/user/api.php">
+<div class="small">Gunakan API Catbox untuk upload file</div>
+</div>
+
+<!-- ================= DDOS DEMO ================= -->
+<div class="card">
+<h2>🥀 DDOS DEMO (SIMULATION)</h2>
+<div class="small">⚠️ Hanya demo visual, tidak menyerang apa pun</div>
+<input id="target" placeholder="Masukkan target website (demo)">
+<button onclick="startDemo()">START ATTACK</button>
+</div>
+
+<div class="card" id="demo" style="display:none">
+<h2>⚠️ ATTACK IN PROGRESS</h2>
+
+<div class="alert">
+🚨 SYSTEM BREACH DETECTED<br>
+🔥 PACKET FLOOD SIMULATION ACTIVE<br>
+💀 TARGET UNDER EXTREME PRESSURE
+</div>
+
+<video autoplay loop muted playsinline>
+  <source src="https://files.catbox.moe/3vx2gq.mp4" type="video/mp4">
+</video>
+
+<div class="alert">
+⛔ WARNING ⛔<br>
+SERVER RESPONSE DROPPING<br>
+TRACE SIGNAL LOST...
+</div>
+</div>
+
+<div class="back" onclick="location.href='beta.html'">
+⬅ KEMBALI KE DASHBOARD
+</div>
+
+<script>
+/* IP SCAN */
+async function scanIP(){
+  let r = await fetch("https://api.ipify.org?format=json");
+  let j = await r.json();
+  ipInfo.innerHTML = `
+IP: ${j.ip}<br>
+Device: ${navigator.platform}<br>
+CPU Core: ${navigator.hardwareConcurrency || "-"}<br>
+RAM: ${navigator.deviceMemory || "-"} GB<br>
+Browser: ${navigator.userAgent}
+`;
+}
+
+/* INTERNET */
+function checkNet(){
+  netStatus.innerHTML = navigator.onLine
+  ? "✅ INTERNET AKTIF<br>Koneksi stabil & siap digunakan"
+  : "❌ INTERNET OFF";
+  setTimeout(()=>netStatus.innerHTML="Klik untuk cek koneksi",4000);
+}
+
+/* WIFI */
+function checkWifi(){
+  wifiStatus.innerHTML = navigator.onLine
+  ? "📶 WiFi / Data Aktif"
+  : "❌ WiFi OFF";
+}
+
+/* DDOS DEMO */
+function startDemo(){
+  if(!target.value.trim()){
+    alert("Masukkan target demo");
+    return;
+  }
+  demo.style.display="block";
+  demo.scrollIntoView({behavior:"smooth"});
+}
+
+/* ENTER KEY */
+target.addEventListener("keydown",e=>{
+  if(e.key==="Enter") startDemo();
+});
+</script>
+
+</body>
+</html>
