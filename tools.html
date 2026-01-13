@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tools Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Orbitron',sans-serif}
+body{background:#05050a;color:#fff;}
+
+/* Menu Tools */
+.menu{
+    display:flex;
+    justify-content:space-around;
+    flex-wrap:wrap;
+    margin:20px 10px
+}
+.menu-item{text-align:center; cursor:pointer;margin-bottom:10px;}
+.menu-item div{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    background:linear-gradient(145deg,#7b2cff,#ff00ff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    box-shadow:0 0 15px rgba(180,0,255,.7)
+}
+.menu-item p{margin-top:8px;font-size:11px;opacity:.9;}
+
+/* Stats / Info */
+.stats{
+    margin:15px;
+    padding:15px;
+    background:linear-gradient(145deg,#150020,#30003f);
+    border-radius:15px;
+    box-shadow:0 0 15px rgba(180,0,255,.5)
+}
+.stats h3{margin-bottom:15px;color:#ff5cff;text-align:center}
+.stat-item{
+    display:flex;
+    justify-content:space-between;
+    margin:6px 0;
+    font-size:13px;
+    line-height:1.4;
+}
+
+/* Buttons */
+button{
+    width:100%;
+    padding:10px;
+    margin:5px 0;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(145deg,#7b2cff,#ff00ff);
+    color:#fff;
+    cursor:pointer;
+    font-size:14px;
+}
+button:hover{opacity:.85;}
+</style>
+</head>
+<body>
+
+<!-- AUTO MUSIC TOOLS -->
+<audio id="toolsMusic" src="https://files.catbox.moe/doz9x5.mp3" preload="auto" loop></audio>
+<script>
+document.addEventListener("click", playToolsMusicOnce, { once: true });
+document.addEventListener("touchstart", playToolsMusicOnce, { once: true });
+function playToolsMusicOnce(){
+    const music = document.getElementById("toolsMusic");
+    music.volume = 0.5;
+    music.play().catch(()=>{});
+}
+</script>
+
+<h2 style="margin:15px; color:#ff5cff;text-align:center;">⚡ Tools Dashboard</h2>
+
+<!-- Menu Tools -->
+<div class="menu">
+    <div class="menu-item" onclick="getIPInfo()">
+        <div>🌐</div>
+        <p>IP & Info HP</p>
+    </div>
+    <div class="menu-item" onclick="checkInternet()">
+        <div>📶</div>
+        <p>Internet</p>
+    </div>
+    <div class="menu-item" onclick="checkWiFi()">
+        <div>📡</div>
+        <p>WiFi</p>
+    </div>
+    <div class="menu-item" onclick="downloadCatbox()">
+        <div>🩸</div>
+        <p>Download</p>
+    </div>
+</div>
+
+<!-- Stats / Info -->
+<div class="stats" id="infoPanel">
+    <h3>ℹ️ INFORMASI HP & IP</h3>
+    <div class="stat-item"><span>1. IP / Lokasi:</span><span id="ip">-</span></div>
+    <div class="stat-item"><span>2. Platform / OS:</span><span id="platform">-</span></div>
+    <div class="stat-item"><span>3. Browser:</span><span id="browser">-</span></div>
+    <div class="stat-item"><span>4. CPU Core:</span><span id="cpu">-</span></div>
+    <div class="stat-item"><span>5. Memory / RAM (perkiraan):</span><span id="ram">-</span></div>
+    <div class="stat-item"><span>6. Screen Size:</span><span id="screen">-</span></div>
+    <div class="stat-item"><span>7. User Agent:</span><span id="ua">-</span></div>
+    <div class="stat-item"><span>8. Bahasa:</span><span id="lang">-</span></div>
+    <div class="stat-item"><span>9. Cookies Enabled:</span><span id="cookies">-</span></div>
+    <div class="stat-item"><span>10. Timezone:</span><span id="tz">-</span></div>
+    <div class="stat-item"><span>11. Model / Merek HP:</span><span id="model">-</span></div>
+    <div class="stat-item"><span>12. Chipset (perkiraan):</span><span id="chipset">-</span></div>
+</div>
+
+<script>
+// IP & Info HP
+async function getIPInfo(){
+    try{
+        const res = await fetch('https://ipapi.co/json/');
+        const data = await res.json();
+        document.getElementById('ip').innerText = data.ip + ' (' + data.city + ', ' + data.region + ', ' + data.country_name + ')';
+        document.getElementById('platform').innerText = navigator.platform;
+        let browserName = navigator.userAgent.match(/(firefox|msie|chrome|safari|trident)/ig) || [];
+        document.getElementById('browser').innerText = browserName[0] || 'Unknown';
+        document.getElementById('cpu').innerText = navigator.hardwareConcurrency || 'Unknown';
+        // RAM perkiraan
+        document.getElementById('ram').innerText = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'Unknown';
+        document.getElementById('screen').innerText = window.screen.width + 'x' + window.screen.height;
+        document.getElementById('ua').innerText = navigator.userAgent;
+        document.getElementById('lang').innerText = navigator.language;
+        document.getElementById('cookies').innerText = navigator.cookieEnabled ? 'Enabled' : 'Disabled';
+        document.getElementById('tz').innerText = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        // Model / Merek HP perkiraan dari userAgent
+        let ua = navigator.userAgent;
+        let modelMatch = ua.match(/\(([^)]+)\)/);
+        document.getElementById('model').innerText = modelMatch ? modelMatch[1] : 'Unknown';
+        // Chipset (perkiraan) → dari platform / cpu info
+        document.getElementById('chipset').innerText = navigator.platform || 'Unknown';
+    } catch(e){
+        alert('Gagal ambil info HP/IP');
+    }
+}
+
+// Internet Checker
+function checkInternet(){
+    if(navigator.onLine){
+        alert('✅ Internet aktif');
+    } else {
+        alert('❌ Internet mati');
+    }
+}
+
+// WiFi Checker
+function checkWiFi(){
+    if(navigator.onLine){
+        alert('✅ WiFi / Koneksi aktif');
+    } else {
+        alert('❌ WiFi mati');
+    }
+}
+
+// Download Catbox Emoji Darah (Fix)
+function downloadCatbox(){
+    window.open('https://files.catbox.moe/3vx2gq.mp4','_blank'); // bisa diganti ke foto/video lain
+}
+</script>
+
+</body>
+</html>
