@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beta Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<script>
+if(localStorage.getItem("login")!=="true"){
+  location.href="login.html";
+}
+</script>
+
+<audio id="bgAudio" src="https://files.catbox.moe/doz9x5.mp3" loop></audio>
+
+<header class="topbar">
+  <h1>🔥 BETA TEST SERVER</h1>
+  <button onclick="logout()">LOGOUT</button>
+</header>
+
+<div class="news-grid">
+
+  <div class="news-card">
+    <h2>⚡ Tools</h2>
+    <p>Akses IP Scanner, DDOS Demo, Internet Check</p>
+    <button onclick="location.href='tools.html'">OPEN</button>
+  </div>
+
+  <div class="news-card">
+    <h2>🤖 Chat AI</h2>
+    <p>Informasi Owner & Website</p>
+    <button onclick="toggleAI()">OPEN</button>
+  </div>
+
+  <div class="news-card">
+    <h2>📊 Server Stats</h2>
+    <p>👥 Online Users: <b id="users"></b></p>
+    <p>🚀 Active Sender: <b id="sender"></b></p>
+  </div>
+
+  <div class="news-card">
+    <h2>📣 Telegram</h2>
+    <p>Update & info terbaru</p>
+    <button onclick="openTelegram()">JOIN</button>
+  </div>
+
+</div>
+
+<!-- AI CHAT (SAMA SEPERTI INDEX) -->
+<div id="aiBox" class="ai-box">
+  <div class="ai-header" onmousedown="dragAI(event)">
+    🤖 AI CHAT
+    <span onclick="toggleAI()">✖</span>
+  </div>
+  <div class="ai-body">
+    <button onclick="aiAnswer(1)">👤 Nama Owner</button>
+    <button onclick="aiAnswer(2)">📨 Telegram Owner</button>
+    <button onclick="aiAnswer(3)">🌐 Website Dibuat</button>
+    <div id="aiResult"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+// AUDIO
+document.addEventListener("click",()=>{
+  bgAudio.play().catch(()=>{});
+},{once:true});
+
+// RANDOM SERVER STATS
+users.innerText=Math.floor(Math.random()*500);
+sender.innerText=Math.floor(Math.random()*100);
+
+function logout(){
+  localStorage.removeItem("login");
+  location.href="login.html";
+}
+</script>
+
+</body>
+</html>

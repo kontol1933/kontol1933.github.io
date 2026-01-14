@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | WN 2026</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<audio id="bgAudio" src="https://files.catbox.moe/doz9x5.mp3" loop></audio>
+
+<div class="tool-card" style="max-width:350px;margin:80px auto;text-align:center">
+  <h2>🔐 LOGIN SYSTEM</h2>
+  <input id="username" placeholder="Username" style="width:100%;margin:8px 0;padding:10px">
+  <input id="password" type="password" placeholder="Password" style="width:100%;margin:8px 0;padding:10px">
+  <button onclick="login()">LOGIN</button>
+  <p id="msg"></p>
+  <hr style="margin:15px 0">
+  <button onclick="buy()">💬 BUY ACCOUNT</button>
+</div>
+
+<script>
+// AUTO AUDIO
+document.addEventListener("click",()=>{
+  bgAudio.play().catch(()=>{});
+},{once:true});
+
+// DATABASE LOKAL
+if(!localStorage.getItem("users")){
+  localStorage.setItem("users",JSON.stringify([
+    {username:"admin",password:"1"}
+  ]));
+}
+
+// LOGIN
+function login(){
+  let u=username.value.trim();
+  let p=password.value.trim();
+  let users=JSON.parse(localStorage.getItem("users"));
+  let ok=users.find(x=>x.username===u && x.password===p);
+  if(ok){
+    localStorage.setItem("login","true");
+    location.href="beta.html";
+  }else{
+    msg.innerText="❌ Username / Password salah";
+  }
+}
+
+// BUY
+function buy(){
+  window.open("https://wa.me/6281234567890","_blank");
+}
+</script>
+</body>
+</html>
